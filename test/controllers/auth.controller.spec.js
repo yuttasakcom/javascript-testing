@@ -23,5 +23,12 @@ describe("AuthController", () => {
         done();
       });
     });
+
+    it("Should return true if authorized", done => {
+      authController.isAuthorizedAsysnc(["user", "admin"], "admin", isAuth => {
+        assert.equal(true, isAuth);
+        done();
+      });
+    });
   });
 });
