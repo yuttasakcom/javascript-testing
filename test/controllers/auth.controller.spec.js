@@ -1,4 +1,6 @@
 const assert = require("assert");
+const expect = require("chai").expect;
+const should = require("chai").should();
 
 const authController = require("../../controllers/auth.controller");
 
@@ -6,12 +8,15 @@ describe("AuthController", () => {
   describe("isAuthorized", () => {
     it("Should return false if not authorized", () => {
       authController.setRoles(["user"]);
-      assert.equal(false, authController.isAuthorized("admin"));
+      const isAuth = authController.isAuthorized("admin");
+      assert.equal(false, isAuth);
+      expect(isAuth).to.be.false;
     });
 
     it("Should return true if authorized", () => {
       authController.setRoles(["user", "admin"]);
-      assert.equal(true, authController.isAuthorized("admin"));
+      const isAuth = authController.isAuthorized("admin");
+      isAuth.should.be.true;
     });
   });
 
