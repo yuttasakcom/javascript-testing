@@ -121,5 +121,24 @@ describe("AuthController", () => {
       res.render.calledOnce.should.be.true;
       res.render.firstCall.args[0].should.equal("error");
     });
+
+    it("should render index if authorized with mock", () => {
+      const isAuth = sinon.stub(user, "isAuthorized").returns(true);
+      const req = { user };
+      const res = {
+        render: function() {}
+      };
+
+      const mock = sinon.mock(res);
+      mock
+        .expects("render")
+        .once()
+        .withExactArgs("index");
+
+      authController.getIndex(req, res);
+      isAuth.calledOnce.should.be.true;
+
+      mock.verify();
+    });
   });
 });
